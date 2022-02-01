@@ -1,0 +1,76 @@
+@import-normalize;
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+}
+input{
+
+}
+.app {
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background: #22404b;
+  color: silver;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container{
+  width: 100%;
+  //min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  //align-items: center;
+  height: 100vh;
+  max-width: 80%;
+  //margin: 0 auto;
+  display: grid;
+  padding-top: 30px;
+  box-sizing: border-box;
+  grid-template-areas: 'top top top ' 'left center right' 'btm btm btm';
+  grid-template-rows: 1fr 5fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+.top {
+  grid-area: top;
+  display: flex;
+  justify-content: space-around;
+}
+.left{
+  flex: 0 0 20%;
+  grid-area: left;
+
+}
+.center{
+  flex: 0 0 60%;
+  position: relative;
+  grid-area: center;
+
+}
+.addNewTodo{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.addToLS{
+  position: absolute;
+  top: 30px;
+  right: 0;
+}
+.getFromLS{
+  position: absolute;
+  top: 60px;
+  right: 0;
+}
+.right{
+  flex: 0 0 20%;
+  grid-area:right;
+
+}
+.bottom{
+  grid-area: btm;
+}
+.todoContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
