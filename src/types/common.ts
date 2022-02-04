@@ -1,3 +1,5 @@
+
+
 export type PointType = {
     id: string
     text: string
@@ -7,7 +9,7 @@ export type PointType = {
 export type TaskType = {
     id: string
     // points: PointType[]
-    selectColor: string
+    selectColor: selectColorsType
     text: string
     expire: string
     isDone:boolean
@@ -20,5 +22,10 @@ export type TodoType = {
     tasks: TaskType[]
     title: string
 }
-
+export type TaskSettingsType = {
+    todoId: string|null
+    taskId:string|null
+}
 export type PointsType = { [key:string]: PointType[] }
+export type selectColorsType = colorsKeys | 'inherit'
+export type colorsKeys = "red" | "aqua" | "green" | "blue" | "violet"

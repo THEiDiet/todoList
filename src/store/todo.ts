@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {PointsType, PointType, TaskType, TodoType} from "../types/common";
+import {PointsType, PointType, selectColorsType, TaskSettingsType, TaskType, TodoType} from "../types/common";
 import {v1} from 'uuid'
 
 
@@ -16,14 +16,14 @@ class Todo {
                     id: 'task1',
                     isDone: false,
                     expire: '2022-02-02',
-                    selectColor: 'red',
+                    selectColor: 'green' as selectColorsType,
                     text: 'some task'
                 },
                 {
                     id: 'task2',
                     isDone: false,
                     expire: '2022-02-02',
-                    selectColor: 'blue',
+                    selectColor: 'violet' as selectColorsType,
                     text: 'some another very important task'
                 },
             ],
@@ -49,22 +49,34 @@ class Todo {
     filters = ['all', 'tomorrow', 'someday', 'urgently']
     currentFilter: string = 'all'
     currentTodo = '1' as null | string
-    categories = ['daily','weekly','yearly','dreams','plans']
+    categories = ['daily', 'weekly', 'yearly', 'dreams', 'plans']
     currentCategory = null as null | string
-    selectColors = ['darkolivegreen','cornflowerblue','salmon']
+    currentTask = {todoId:null,taskId:null} as TaskSettingsType
+    // selectColors = ['#CDBBE4','#DAB2D6','#BEC2E3','#B0D5C8','#B6D9DE',]
+    theme = 'light' as 'dark' | 'light'
+    isModalOpen = false as boolean
     constructor() {
         makeAutoObservable(this)
     }
-    saveToLocalStorage(){
-        localStorage.setItem('todos',JSON.stringify(this.todos))
-        localStorage.setItem('points',JSON.stringify(this.points))
+
+    changeTheme(prevTheme: 'dark' | 'light') {
+        this.theme = prevTheme === 'dark' ? 'light' : "dark"
     }
-    getFromLocalStorage(){
+
+    saveToLocalStorage() {
+        localStorage.setItem('todos', JSON.stringify(this.todos))
+        localStorage.setItem('points', JSON.stringify(this.points))
+    }
+
+    getFromLocalStorage() {
         let todos = localStorage.getItem('todos')
-        if(todos) this.todos = JSON.parse(todos)
+        if (todos) this.todos = JSON.parse(todos)
         let points = localStorage.getItem('points')
-        if(points ) this.points = JSON.parse(points)
-            }
+        if (points) this.points = JSON.parse(points)
+    }
+    setIsModalOpen(){
+       this.isModalOpen= !this.isModalOpen
+    }
     addTodoList(title: string) {
         const newTodo = {
             filters: ['all',],
@@ -75,9 +87,15 @@ class Todo {
             tasks: [],
         }
         this.todos.push(newTodo)
+        this.currentTodo = newTodo.id
     }
-    addTodoFilter(todoId:string,filter:string){
-         this.todos.forEach(t => t.id === todoId ? t.filters.push(filter): t)
+
+    addTodoFilter(todoId: string, filter: string) {
+        this.todos.forEach(t => t.id === todoId ? t.filters.push(filter) : t)
+    }
+    deleteTodoFilter(todoId: string, filter: string) {
+        let i = this.todos.findIndex(t => t.id === todoId)
+        this.todos[i].filters = this.todos[i].filters.filter(f => f !== filter)
     }
 
     addNewTask(todoId: string, newText: string) {
@@ -86,7 +104,7 @@ class Todo {
             id: taskId,
             isDone: false,
             expire: 'tomorrow',
-            selectColor: 'blue',
+            selectColor: 'inherit' as selectColorsType,
             text: newText
         }
         let todo = this.todos.findIndex(t => t.id === todoId)
@@ -103,14 +121,20 @@ class Todo {
         let todo = this.todos.findIndex(t => t.id === todoId)
         let prevIsDone = this.todos[todo]?.tasks.find(t => t.id === taskId)?.isDone
         this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, isDone: !t.isDone} : t)
-        this.points[taskId] = this.points[taskId].map(p => p = {...p,isDone:!prevIsDone})
+        this.points[taskId] = this.points[taskId].map(p => p = {...p, isDone: !prevIsDone})
     }
 
     editTaskText(todoId: string, taskId: string, newText: string) {
         let todo = this.todos.findIndex(t => t.id === todoId)
         this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, text: newText} : t)
     }
-    changeTaskSettings(todoId:string,taskId:string,payload:{isDone:boolean,expire: string,selectColor: string,text: string}){
+    changeAllTask(task:TaskType){
+
+        const {todoId,taskId}=this.currentTask
+        let todo = this.todos.findIndex(t => t.id === todoId)
+        this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, ...task} : t)
+    }
+    changeTaskSettings(todoId: string, taskId: string, payload: TaskType) {
         let todo = this.todos.findIndex(t => t.id === todoId)
         this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, ...payload} : t)
     }
@@ -122,7 +146,7 @@ class Todo {
             expire: 'today',
             isDone: false
         }
-        this.points[taskId] = [...this.points[taskId], newPoint]
+        this.points[taskId] = [newPoint, ...this.points[taskId]]
     }
 
     editPointText(taskId: string, pointId: string, newText: string) {
@@ -134,7 +158,7 @@ class Todo {
     }
 
     togglePoint(taskId: string, pointId: string) {
-        this.points[taskId] = this.points[taskId].map(p => p.id === pointId ? {...p,isDone:!p.isDone}: p)
+        this.points[taskId] = this.points[taskId].map(p => p.id === pointId ? {...p, isDone: !p.isDone} : p)
     }
 
     setFilter(newFilterValue: string) {
@@ -144,11 +168,21 @@ class Todo {
     chooseTodo(todoId: string | null) {
         this.currentTodo = todoId
     }
-    changeCategory(category:string | null){
+
+    changeCategory(category: string | null) {
         this.currentCategory = category
     }
-    changeTodoCategory(todoId:string,category:string){
-        this.todos = this.todos.map(t => t.id === todoId ? {...t,category}:t)
+
+    changeTodoCategory(todoId: string, category: string) {
+        this.todos = this.todos.map(t => t.id === todoId ? {...t, category} : t)
+    }
+    setCurrentTask(payload:TaskSettingsType){
+         this.currentTask = payload
+    }
+    get currentTaskBody(){
+        const {todoId,taskId}=this.currentTask
+        return this.todos.find(t => t.id === todoId)?.tasks.find(t => t.id === taskId)
+
     }
 }
 

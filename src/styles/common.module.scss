@@ -1,12 +1,62 @@
+@import "variables.module";
 .title {
   padding-top: 20px;
 }
 .input {
+  display: inline-block;
   padding: 10px 15px;
+  appearance: none;
+  outline: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  width: 100%;
+  border-radius: $b-rad;
 }
 .button {
   padding: 10px;
+  background: transparent;
+  border: 2px solid;
+  color: inherit;
+  border-radius: 100px;
 }
 .checkbox {
-
+}
+.iconBtn {
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  min-height: 26px;
+  opacity: 0.8;
+}
+.roundBtn{
+  border-radius: 50px;
+  border: 2px solid;
+  padding: 3px;
+}
+.filter{
+  display: flex;
+  flex-wrap: wrap;
+  &__item{
+    text-transform: uppercase;
+    margin: 0 0 10px 10px;
+    border-radius: 50px;
+    border: 2px solid;
+    padding: 10px 15px;
+  }
+}
+.arrowDown{
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  transform: rotate(90deg);
+}
+.addForm {
+  position: relative;
+  &__add{
+    position: absolute;
+    top: 7px;
+    right: 5px;
+  }
 }

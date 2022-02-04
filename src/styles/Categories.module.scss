@@ -1,0 +1,25 @@
+@import 'variables.module';
+
+.categories {
+    width: 100%;
+    min-height: 80px;
+    border-radius: $b-rad;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: $shadow;
+    overflow: hidden;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.categoryItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+    flex: 1 0 auto;
+}
+.active{
+
+}

@@ -1,6 +1,10 @@
 @import-normalize;
+@import "variables.module";
 h1,h2,h3,h4,h5,h6{
   margin: 0;
+}
+*{
+  box-sizing: border-box;
 }
 input{
 
@@ -9,37 +13,35 @@ input{
   text-align: center;
   width: 100%;
   min-height: 100vh;
-  background: #22404b;
-  color: silver;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .container{
   width: 100%;
-  //min-height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  //align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   max-width: 80%;
-  //margin: 0 auto;
   display: grid;
   padding-top: 30px;
   box-sizing: border-box;
   grid-template-areas: 'top top top ' 'left center right' 'btm btm btm';
-  grid-template-rows: 1fr 5fr 1fr;
+  grid-template-rows: 80px 5fr 1fr;
   grid-template-columns: 1fr 3fr 1fr;
+  gap: 30px;
 }
 .top {
   grid-area: top;
-  display: flex;
-  justify-content: space-around;
 }
 .left{
   flex: 0 0 20%;
   grid-area: left;
-
+  box-shadow: inset $shadow;
+  border-radius: $b-rad;
+  padding: 15px;
+  h3{
+    margin-bottom: 15px;
+  }
 }
 .center{
   flex: 0 0 60%;
@@ -50,17 +52,22 @@ input{
 .addNewTodo{
   position: absolute;
   top: 0;
-  right: 0;
+  right: 30px;
 }
 .addToLS{
   position: absolute;
-  top: 30px;
-  right: 0;
+  top: 50px;
+  right: 30px;
 }
 .getFromLS{
   position: absolute;
-  top: 60px;
-  right: 0;
+  top: 100px;
+  right: 30px;
+}
+.changeTheme{
+  position: absolute;
+  top: 150px;
+  right: 30px;
 }
 .right{
   flex: 0 0 20%;

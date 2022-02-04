@@ -1,9 +1,13 @@
+@import "variables.module";
 .colorPicker{
     display: flex;
-
+    width: 100%;
+    justify-content: space-between;
 }
 .color{
     width: 40px;
     height: 40px;
     border-radius: 50px;
+    border-width: 1px;
+    box-shadow: inset $shadow;
 }

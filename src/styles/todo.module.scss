@@ -1,75 +1,139 @@
+@import "variables.module";
+
+.addTodoForm {
+    padding: 20px;
+    box-shadow: $shadow;
+    max-width: 450px;
+    margin: 0 auto;
+    border-radius: $b-rad;
+    border: 3px solid;
+
+    input {
+        box-shadow: inset $shadow;
+    }
+}
 
 .todolist {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 450px;
     margin: 0 auto;
-    background: #172f38;
-    padding: 10px;
-    border-radius: 5px;
+    box-shadow: $shadow;
+    padding: 20px;
+    border-radius: $b-rad;
+    border: 3px solid;
+
     &__form {
         display: flex;
         flex-direction: column;
 
-        &__filters{
+        &__filters {
             display: flex;
+            justify-content: space-between;
         }
-        &__filter{
+
+        &__filter {
             display: inline-block;
             padding: 10px;
-            background: #38323a;
+
             border-radius: 5px;
             margin-right: 5px;
             font-size: 14px;
+
+            &_last {
+                justify-self: flex-end;
+
+
+            }
         }
+
         &__title {
             margin-bottom: 20px;
+            text-transform: uppercase;
         }
-        &__body{
+
+        &__body {
             display: flex;
             width: 100%;
             align-items: center;
+            margin-bottom: 10px;
+            position: relative;
         }
+
         &__input {
-            width: 100%;
-            display: inline-block;
+
+            box-shadow: inset $shadow;
         }
+
         &__button {
             display: inline-block;
             margin-left: 5px;
-            align-self: flex-end;
+            position: absolute;
+            top: 7px;
+            right: 5px;
         }
     }
-    &__body{
+
+    &__body {
         display: flex;
         flex-direction: column;
 
     }
-    &__task{
-        padding: 10px;
+
+    &__task {
+        //padding: 10px;
+        margin-bottom: 10px;
+        border-radius: $b-rad;
+        overflow: hidden;
     }
+
     &__item {
         display: flex;
-        justify-content: space-between;
         font-size: 20px;
         align-items: center;
+        justify-content: space-between;
+        box-shadow: $shadow;
+        padding: 10px;
+        border-radius: $b-rad;
+        max-width: 100%;
+
+        &_first {
+            flex: 1 0 250px;
+            flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+
+            input {
+                margin-right: 10px;
+            }
+        }
+
+        &_last {
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            & > *:not(:last-child) {
+                margin-right: 5px;
+            }
+        }
     }
+
     &__points {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
 }
+
 .point {
     &__item {
-        padding: 10px 0 10px 20px;
+        padding: 10px 10px 10px 20px;
         text-align: left;
-        color: #6ea895;
         display: flex;
+        font-size: 16px;
         justify-content: space-between;
+        box-shadow: none;
     }
-}
-.addPoint{
-    display: flex;
-    justify-content: flex-end;
 }

@@ -1,0 +1,66 @@
+@import "variables.module";
+//------colors-------------------
+.violet{
+    background: $d-violet;
+}
+.aqua{
+    background: $d-aqua;
+}
+.green{
+    background: $d-green;
+}
+.blue{
+    background: $d-blue;
+}
+.red{
+    background: $d-red;
+}
+//-----colors-border-------------
+.violetBorder{
+    border-color: $d-violet;
+}
+.aquaBorder{
+    border-color: $d-aqua;
+}
+.greenBorder{
+    border-color: $d-green;
+}
+.blueBorder{
+    border-color: $d-blue;
+}
+.redBorder{
+    border-color: $d-red;
+}
+//---------------------------
+.bgColor{
+    background: $d-bg-color;
+}
+.fontColor{
+    color:$d-color;
+}
+.activeFontColor{
+    color:$d-active-color;
+}
+.bgElemColor{
+    background: $d-bg-elem-color;
+}
+.bgElemDark{
+    background: $d-bg-elem-dark;
+}
+.bgActive{
+    background: $d-active-color;
+}
+.borderColor{
+    border:3px solid $d-active-color !important;
+}
+.activeBorderColor{
+    border:3px solid $d-active-dark-color !important;
+}
+.formBg{
+    background: $d-form-color;
+    caret: $d-color;
+}
+
+.fillColor{
+    fill:$d-color;
+}
