@@ -1,12 +1,20 @@
 import {makeAutoObservable} from "mobx";
-import {PointsType, PointType, selectColorsType, TaskSettingsType, TaskType, TodoType} from "../types/common";
+import {
+    FiltersType,
+    PointsType,
+    PointType,
+    selectColorsType,
+    TaskSettingsType,
+    TaskType,
+    TodoType
+} from "../types/common";
 import {v1} from 'uuid'
 
 
 class Todo {
     todos: TodoType[] = [
         {
-            filters: ['all', 'tomorrow'],
+            filters: ['all', 'urgently'] as FiltersType[],
             title: 'first todo',
             id: '1',
             category: 'daily',
@@ -46,13 +54,12 @@ class Todo {
         ],
         task2: []
     }
-    filters = ['all', 'tomorrow', 'someday', 'urgently']
-    currentFilter: string = 'all'
+    filters = ['important', 'not important', 'urgently', 'not urgently'] as FiltersType[]
+    currentFilter = 'all' as FiltersType
     currentTodo = '1' as null | string
-    categories = ['daily', 'weekly', 'yearly', 'dreams', 'plans']
+    categories = ['home', 'work', 'hobbies', 'dreams', 'plans']
     currentCategory = null as null | string
     currentTask = {todoId:null,taskId:null} as TaskSettingsType
-    // selectColors = ['#CDBBE4','#DAB2D6','#BEC2E3','#B0D5C8','#B6D9DE',]
     theme = 'light' as 'dark' | 'light'
     isModalOpen = false as boolean
     constructor() {
@@ -89,7 +96,13 @@ class Todo {
         this.todos.push(newTodo)
         this.currentTodo = newTodo.id
     }
-
+    editTodoListTitle(todoId:string,title:string){
+        this.todos = this.todos.map(t => t.id === todoId ? {...t,title}:t)
+    }
+    deleteTodoList(todoId:string){
+        this.todos = this.todos.filter(t => t.id !== todoId)
+        this.currentTodo= null
+    }
     addTodoFilter(todoId: string, filter: string) {
         this.todos.forEach(t => t.id === todoId ? t.filters.push(filter) : t)
     }
@@ -161,7 +174,7 @@ class Todo {
         this.points[taskId] = this.points[taskId].map(p => p.id === pointId ? {...p, isDone: !p.isDone} : p)
     }
 
-    setFilter(newFilterValue: string) {
+    setFilter(newFilterValue: FiltersType) {
         this.currentFilter = newFilterValue
     }
 

@@ -3,7 +3,6 @@ import todo from "../store/todo";
 import {observer} from "mobx-react-lite";
 import s from './../styles/FilteredTodos.module.scss'
 import {TodoType} from "../types/common";
-import theme from "./common/theme";
 import darkTheme from "../styles/DarkTheme.module.scss";
 import lightTheme from "../styles/LightTheme.module.scss";
 

@@ -3,14 +3,13 @@ import s from './../../styles/MyCheckbox.module.scss'
 
 type CheckboxPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     onChangeChecked?: (checked: boolean) => void
-    spanClassName?: string
 }
 
 const MyCheckbox: React.FC<CheckboxPropsType> = (
     {
         type,
         onChange, onChangeChecked,
-        className, spanClassName,
+        className,
         children,
         ...restProps
     }

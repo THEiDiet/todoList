@@ -5,14 +5,20 @@ import c from './../styles/common.module.scss'
 import todos from "../store/todo";
 import darkTheme from "../styles/DarkTheme.module.scss";
 import lightTheme from "../styles/LightTheme.module.scss";
+import {FiltersType} from "../types/common";
 
-const Filters = observer(() => {
+type props = {
+    callback:(filter:FiltersType)=>void
+}
+
+const Filters = observer(({callback}:props) => {
     const currentTheme = todos.theme === 'dark' ? darkTheme : lightTheme
+    console.log(todo.currentFilter)
     return (
         <div className={c.filter}>
             {todo.filters.map(f => <div className={`${c.filter__item} ${currentTheme.borderColor} 
             ${todo.currentFilter === f ? currentTheme.bgActive : 'none'}`}
-            key={f} onClick={() => todo.setFilter(f)}>{f}</div>)}
+            key={f} onClick={() => callback(f)}>{f}</div>)}
         </div>
     );
 })

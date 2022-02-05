@@ -65,3 +65,28 @@
 .fillColor{
     fill:$l-color;
 }
+.activeFillColor{
+    fill:$l-active-color;
+}
+.strokeColor{
+    stroke:$l-color;
+}
+.contentCheckbox{
+    position: relative;
+    z-index: 10;
+    min-width: 20px;
+    width: 20px;
+    min-height: 20px;
+    height: 20px;
+    border-radius: $b-rad;
+    border: 1px solid;
+    &__checkbox {
+        position: absolute;
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+        z-index: 10;
+        top: 0;
+        left: 0;
+    }
+}

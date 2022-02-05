@@ -16,8 +16,6 @@ function MySelect<
 
     const customStyles = {
         option: (provided: any, state: any) => {
-            console.log(state, ' + ', provided)
-            // console.log(state.selectProps.value)
             return {
                 ...provided,
                 backgroundColor: state.isSelected ? theme.activeColor : theme.bgColor,
@@ -37,8 +35,6 @@ function MySelect<
     }
 
     const handler=(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) =>{
-        // console.log(newValue)
-        // console.log(actionMeta)
     }
     return (
         <>

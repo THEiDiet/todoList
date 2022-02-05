@@ -1,4 +1,5 @@
 @import "variables.module";
+
 .title {
   padding-top: 20px;
 }
@@ -11,14 +12,22 @@
   color: inherit;
   font-size: 16px;
   width: 100%;
+  min-height: 34px;
   border-radius: $b-rad;
+  box-shadow: inset $shadow;
 }
 .button {
-  padding: 10px;
+  appearance: none;
+  border: none;
+  padding: 10px 15px;
   background: transparent;
-  border: 2px solid;
   color: inherit;
-  border-radius: 100px;
+  border-radius: $b-rad;
+  font-weight: 600;
+  &:focus{
+
+    outline: none;
+  }
 }
 .checkbox {
 }
@@ -38,11 +47,10 @@
   display: flex;
   flex-wrap: wrap;
   &__item{
-    text-transform: uppercase;
-    margin: 0 0 10px 10px;
+    margin: 0 10px 10px 0;
     border-radius: 50px;
     border: 2px solid;
-    padding: 10px 15px;
+    padding: 6px 12px 8px;
   }
 }
 .arrowDown{
@@ -53,10 +61,41 @@
   transform: rotate(90deg);
 }
 .addForm {
+  width: 100%;
   position: relative;
   &__add{
     position: absolute;
     top: 7px;
     right: 5px;
   }
+}
+.iconButton{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  button{
+  }
+  &__icon{
+    position: absolute;
+    top: 11px;
+    right: -2px;
+    width: 14px;
+    height: 14px;
+  }
+}
+.editableSpanContainer{
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  height: 100%;
+}
+.editableSpan{
+  min-height: 34px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  padding: 0 10px ;
 }

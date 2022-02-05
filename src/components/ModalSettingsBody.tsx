@@ -2,8 +2,11 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import todo from "../store/todo";
 import darkTheme from "../styles/DarkTheme.module.scss";
 import lightTheme from "../styles/LightTheme.module.scss";
+import s from './../styles/Modal.module.scss'
 import {selectColorsType, TaskType} from "../types/common";
 import ColorPicker from "./common/ColorPicker";
+import MyInput from "./common/MyInput";
+import CommonButton from "./common/CommonButton";
 
 type props = {task:TaskType}
 
@@ -17,9 +20,10 @@ const ModalSettingsBody = ({task}:props) => {
         todo.setCurrentTask({todoId:null,taskId:null})
     }
 
-    const renameTask = (e: ChangeEvent<HTMLInputElement>) => {
-        setTask({...editTask, text:e.currentTarget.value})
+    const renameTask = (text:string) => {
+        setTask({...editTask, text})
     }
+
     const setNewExpire = (e: ChangeEvent<HTMLInputElement>) => {
         let choosingDate = e.target.value.split('-').map(e => +e)
         let date = new Date()
@@ -35,12 +39,12 @@ const ModalSettingsBody = ({task}:props) => {
         setTask(prev=>({...prev,selectColor}))
     }
     return (
-        <div>
+        <div className={s.modalBody}>
             <input type="date" onChange={(e) => setNewExpire(e)}/>
             <ColorPicker currentColor={editTask.selectColor} callback={setColor}/>
-            <input value={editTask.text} onChange={renameTask}/>
-            <button disabled={!!error} onClick={saveHandler}>save</button>
-            <div>{error}</div>
+            <MyInput onChange={renameTask} editableText={editTask.text} mode={'none'}/>
+            <CommonButton text={'save'} cb={saveHandler} mode={"fulfilled"}/>
+            {error && <div>{error}</div>}
         </div>
     );
 };

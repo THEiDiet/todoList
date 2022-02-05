@@ -26,6 +26,13 @@ export type TaskSettingsType = {
     todoId: string|null
     taskId:string|null
 }
+export type commonButtonPropsType = {
+    text:string
+    cb:()=>void
+    mode?: 'border' | 'fulfilled' | 'none'
+}
+export type FiltersType = 'important'& 'not important'& 'urgently'& 'not urgently' & 'all'
+
 export type PointsType = { [key:string]: PointType[] }
 export type selectColorsType = colorsKeys | 'inherit'
 export type colorsKeys = "red" | "aqua" | "green" | "blue" | "violet"

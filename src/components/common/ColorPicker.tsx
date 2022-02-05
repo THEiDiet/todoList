@@ -19,7 +19,7 @@ const ColorPicker = ({callback,currentColor}:props) => {
     }
     return (
         <div className={s.colorPicker} onClick={(e) => pickColor(e)}>
-            {colorsNew.map(c => <div className={` ${s.color} ${c !=='inherit' ? currentTheme[c] : currentTheme.bgElemColor} ${currentColor === c && currentTheme.activeBorderColor}`} data-color={c}/>)}
+            {colorsNew.map(c => <div key={c} className={` ${s.color} ${c !=='inherit' ? currentTheme[c] : currentTheme.bgElemColor} ${currentColor === c && currentTheme.activeBorderColor}`} data-color={c}/>)}
         </div>
     );
 };

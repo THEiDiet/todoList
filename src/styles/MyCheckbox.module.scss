@@ -1,46 +1,4 @@
-.checkbox {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-}
-
-.checkbox + label {
-    position: relative;
-    vertical-align: middle;
-    padding: 0 0 0 30px;
-    cursor: pointer;
-}
-
-/* Чекбокс в состоянии неактивен */
-.checkbox + label:before {
-    content: '';
-    position: absolute;
-    top: 0px;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid ;
-    border-radius: 3px;
-    box-sizing: border-box;
-}
-
-/* Чекбокс в состоянии активен */
-.checkbox + label:after {
-    content: '';
-    width: 20px;
-    height: 20px;
-    top: 0;
-    left: 0;
-    position: absolute;
-}
-
-/* Фон чекбокса в состоянии активен */
-.checkbox:checked + label:after {
-    position: absolute;
-    content: url("./../assets/check.svg");
-}
-
-.text {
-    display: inline-block;
-    margin-left: 15px;
+.check{
+    width: 18px;
+    height: 18px;
 }

@@ -10,7 +10,7 @@ import AddPoint from "./AddPoint";
 import theme from "./common/theme";
 import MyButton from "./common/MyButton";
 import {ReactComponent as ArrowDown} from "./../assets/arrow.svg";
-import MyCheckbox from "./common/MyCheckbox";
+import Checkbox from "./common/Checkbox";
 import todos from "../store/todo";
 import darkTheme from "../styles/DarkTheme.module.scss";
 import lightTheme from "../styles/LightTheme.module.scss";
@@ -32,26 +32,38 @@ const Task = observer(({task,todoId,setCurrentTask}: propsType) => {
         todo.addNewPoint(task.id, text)
         setAddMode(false)
     }
-    const changeCheckbox = ()=>{
+
+
+    const changeCheckbox = (b:boolean)=>{
+        console.log(todoId,task.id, b)
         todo.toggleTask(todoId,task.id)
     }
+    const changeCheckbox1 = ()=>{
+        console.log(todoId,task.id)
+        todo.toggleTask(todoId,task.id)
+    }
+    const change = (checked:boolean)=> {
+        changeCheckbox(checked)
+        console.log(todoId,task.id,checked,'11111')
+
+    }
     return (
-        <div className={`${s.todolist__task} ${task.selectColor !== 'inherit' ? currentTheme[task.selectColor]: currentTheme.bgElemColor}`}>
+        <div className={`${s.todolist__task}  ${task.selectColor !== 'inherit' ? currentTheme[task.selectColor]: currentTheme.bgElemColor}`}>
             <div className={s.todolist__item} onClick={() => setCurrentTask(task.id)}>
                <div className={s.todolist__item_first}>
-                   {/*<MyCheckbox checked={task.isDone} onChange={changeCheckbox}/>*/}
-                   <input type="checkbox" checked={task.isDone} onChange={changeCheckbox}/>
+                   <Checkbox className={s.todolist__item__check} checked={task.isDone} onChangeChecked={change}/>
                    <EditableSpan callback={(newText) => todo.editTaskText(todoId,task.id, newText)} text={task.text}/>
                </div>
-                {/*<div>{task.expire}</div>*/}
                 <div className={s.todolist__item_last}>
-                    <MyButton callback={() => todo.deleteTask(todoId,task.id)} mode={'delete'}/>
-                    {!addMode && <MyButton callback={() => setAddMode(true)} mode={'add'}/>}
-                    {todo.points[task.id].length > 0 &&
-                    <ArrowDown className={`${c.iconBtn} ${c.arrowDown} ${currentTheme.fillColor}`}
-                               onClick={toggleCollapsed}/>}
+                    <div className={s.todolist__item_lastTop}>
+                        <MyButton callback={() => todo.deleteTask(todoId,task.id)} mode={'delete'}/>
+                        {!addMode && <MyButton callback={() => setAddMode(true)} mode={'add'}/>}
+                        {todo.points[task.id].length > 0 &&
+                        <ArrowDown className={`${c.iconBtn} ${c.arrowDown} ${currentTheme.fillColor}`}
+                                   onClick={toggleCollapsed}/>}
+                    </div>
+                    <div className={s.todolist__item_lastBottom}>{task.expire}</div>
                 </div>
-
             </div>
             <div className={s.todolist__points}>
                 {addMode && <AddPoint callback={addNewPoint}/>}
