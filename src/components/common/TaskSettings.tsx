@@ -2,19 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {selectColorsType, TaskType} from "../../types/common";
 import {observer} from "mobx-react-lite";
 import todo from './../../store/todo'
-import darkTheme from "../../styles/DarkTheme.module.scss";
-import lightTheme from "../../styles/LightTheme.module.scss";
 import ColorPicker from "./ColorPicker";
 import IconButton from "./IconButton";
 
 
 const TaskSettings = observer(({taskItem}: { taskItem: TaskType }) => {
-    const currentTheme = todo.theme === 'dark' ? darkTheme : lightTheme
     const [task, setTask] = useState<TaskType>(taskItem)
 
     useEffect(() => {
         todo.currentTaskBody && setTask(todo.currentTaskBody)
-    }, [todo.currentTask])
+    })
 
     const setColor = (selectColor: selectColorsType) => {
         setTask(prev=>({...prev,selectColor}))
@@ -24,7 +21,7 @@ const TaskSettings = observer(({taskItem}: { taskItem: TaskType }) => {
     return (
         <div>
             <ColorPicker currentColor={task.selectColor} callback={setColor}/>
-            <IconButton text={'settings'} cb={()=>todo.setIsModalOpen()} mode={'none'}/>
+            <IconButton text={'settings'} cb={() => todo.setIsModalOpen()} mode={'none'}/>
         </div>
 
     );

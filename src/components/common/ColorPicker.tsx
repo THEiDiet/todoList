@@ -1,5 +1,5 @@
 import React from 'react';
-import {colorsKeys, selectColorsType} from "../../types/common";
+import {selectColorsType} from "../../types/common";
 import s from "../../styles/TaskSettings.module.scss";
 import todo from "../../store/todo";
 import darkTheme from "../../styles/DarkTheme.module.scss";

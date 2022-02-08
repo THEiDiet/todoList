@@ -1,13 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {
-    FiltersType,
-    PointsType,
-    PointType,
-    selectColorsType,
-    TaskSettingsType,
-    TaskType,
-    TodoType
-} from "../types/common";
+import {FiltersType, PointsType, selectColorsType, TaskSettingsType, TaskType, TodoType} from "../types/common";
 import {v1} from 'uuid'
 
 
@@ -55,13 +47,14 @@ class Todo {
         task2: []
     }
     filters = ['important', 'not important', 'urgently', 'not urgently'] as FiltersType[]
-    currentFilter = 'all' as FiltersType
+    currentFilter = ['all'] as FiltersType[]
     currentTodo = '1' as null | string
     categories = ['home', 'work', 'hobbies', 'dreams', 'plans']
     currentCategory = null as null | string
-    currentTask = {todoId:null,taskId:null} as TaskSettingsType
+    currentTask = {todoId: null, taskId: null} as TaskSettingsType
     theme = 'light' as 'dark' | 'light'
-    isModalOpen = false as boolean
+    isModalOpen = false
+
     constructor() {
         makeAutoObservable(this)
     }
@@ -81,34 +74,53 @@ class Todo {
         let points = localStorage.getItem('points')
         if (points) this.points = JSON.parse(points)
     }
-    setIsModalOpen(){
-       this.isModalOpen= !this.isModalOpen
+
+    setIsModalOpen() {
+        this.isModalOpen = !this.isModalOpen
     }
+
     addTodoList(title: string) {
         const newTodo = {
-            filters: ['all',],
+            filters: ['all'] as FiltersType[],
             title,
             id: v1(),
-            category: 'daily',
+            category: '',
             created: Date.now().toString(),
             tasks: [],
         }
         this.todos.push(newTodo)
         this.currentTodo = newTodo.id
     }
-    editTodoListTitle(todoId:string,title:string){
-        this.todos = this.todos.map(t => t.id === todoId ? {...t,title}:t)
+
+    editTodoListTitle(todoId: string, title: string) {
+        this.todos = this.todos.map(t => t.id === todoId ? {...t, title} : t)
     }
-    deleteTodoList(todoId:string){
+
+    deleteTodoList(todoId: string) {
         this.todos = this.todos.filter(t => t.id !== todoId)
-        this.currentTodo= null
+        this.currentTodo = null
     }
-    addTodoFilter(todoId: string, filter: string) {
-        this.todos.forEach(t => t.id === todoId ? t.filters.push(filter) : t)
-    }
-    deleteTodoFilter(todoId: string, filter: string) {
-        let i = this.todos.findIndex(t => t.id === todoId)
-        this.todos[i].filters = this.todos[i].filters.filter(f => f !== filter)
+
+    addTodoFilter(todoId: string, filter: FiltersType) {
+        this.todos.forEach(t => {
+            if (t.id === todoId) {
+                if (t.filters.indexOf(filter) === -1) {
+                    if (filter === 'important' && t.filters.indexOf('not important') !== -1) {
+                        t.filters.splice(t.filters.indexOf('not important'), 1)
+                    } else if (filter === 'not important' && t.filters.indexOf('important') !== -1) {
+                        t.filters.splice(t.filters.indexOf('important'), 1)
+                    } else if (filter === 'not urgently' && t.filters.indexOf('urgently') !== -1) {
+                        t.filters.splice(t.filters.indexOf('urgently'), 1)
+                    } else if (filter === 'urgently' && t.filters.indexOf('not urgently') !== -1) {
+                        t.filters.splice(t.filters.indexOf('not urgently'), 1)
+                    }
+                    t.filters.push(filter)
+                } else {
+                    t.filters.splice(t.filters.indexOf(filter), 1)
+                }
+
+            }
+        })
     }
 
     addNewTask(todoId: string, newText: string) {
@@ -134,22 +146,19 @@ class Todo {
         let todo = this.todos.findIndex(t => t.id === todoId)
         let prevIsDone = this.todos[todo]?.tasks.find(t => t.id === taskId)?.isDone
         this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, isDone: !t.isDone} : t)
-        this.points[taskId] = this.points[taskId].map(p => p = {...p, isDone: !prevIsDone})
+        this.points[taskId] = this.points[taskId].map(p => ( {...p, isDone: !prevIsDone}))
     }
 
     editTaskText(todoId: string, taskId: string, newText: string) {
         let todo = this.todos.findIndex(t => t.id === todoId)
         this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, text: newText} : t)
     }
-    changeAllTask(task:TaskType){
 
-        const {todoId,taskId}=this.currentTask
+    changeAllTask(task: TaskType) {
+
+        const {todoId, taskId} = this.currentTask
         let todo = this.todos.findIndex(t => t.id === todoId)
         this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, ...task} : t)
-    }
-    changeTaskSettings(todoId: string, taskId: string, payload: TaskType) {
-        let todo = this.todos.findIndex(t => t.id === todoId)
-        this.todos[todo].tasks = this.todos[todo]?.tasks.map(t => t.id === taskId ? {...t, ...payload} : t)
     }
 
     addNewPoint(taskId: string, text: string) {
@@ -174,8 +183,26 @@ class Todo {
         this.points[taskId] = this.points[taskId].map(p => p.id === pointId ? {...p, isDone: !p.isDone} : p)
     }
 
-    setFilter(newFilterValue: FiltersType) {
-        this.currentFilter = newFilterValue
+    setFilter(filter: FiltersType) {
+        const index = this.currentFilter.indexOf(filter)
+        if (index === -1) {
+            if (filter === 'important' && this.currentFilter.indexOf('not important') !== -1) {
+                this.currentFilter.splice(this.currentFilter.indexOf('not important'), 1)
+            } else if (filter === 'not important' && this.currentFilter.indexOf('important') !== -1) {
+                this.currentFilter.splice(this.currentFilter.indexOf('important'), 1)
+            } else if (filter === 'not urgently' && this.currentFilter.indexOf('urgently') !== -1) {
+                this.currentFilter.splice(this.currentFilter.indexOf('urgently'), 1)
+            } else if (filter === 'urgently' && this.currentFilter.indexOf('not urgently') !== -1) {
+                this.currentFilter.splice(this.currentFilter.indexOf('not urgently'), 1)
+            }
+            this.currentFilter.push(filter)
+        } else {
+            this.currentFilter.splice(index, 1)
+        }
+    }
+
+    clearFilters() {
+        this.currentFilter = ['all']
     }
 
     chooseTodo(todoId: string | null) {
@@ -189,13 +216,14 @@ class Todo {
     changeTodoCategory(todoId: string, category: string) {
         this.todos = this.todos.map(t => t.id === todoId ? {...t, category} : t)
     }
-    setCurrentTask(payload:TaskSettingsType){
-         this.currentTask = payload
-    }
-    get currentTaskBody(){
-        const {todoId,taskId}=this.currentTask
-        return this.todos.find(t => t.id === todoId)?.tasks.find(t => t.id === taskId)
 
+    setCurrentTask(payload: TaskSettingsType) {
+        this.currentTask = payload
+    }
+
+    get currentTaskBody() {
+        const {todoId, taskId} = this.currentTask
+        return this.todos.find(t => t.id === todoId)?.tasks.find(t => t.id === taskId)
     }
 }
 

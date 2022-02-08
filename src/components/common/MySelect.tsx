@@ -1,46 +1,30 @@
 import React from 'react';
-import Select, {ActionMeta, GroupBase, OnChangeValue, Props, SingleValue} from "react-select";
+import Select, {GroupBase, Props} from "react-select";
 import todos from "../../store/todo";
-import myTheme from './theme'
-import StateManagedSelect from "react-select/dist/declarations/src/stateManager";
+import myTheme from '../../theme/theme'
+import darkTheme from "../../styles/DarkTheme.module.scss";
+import lightTheme from "../../styles/LightTheme.module.scss";
 
-// type propsType = typeof Select
-
-function MySelect<
-    Option,
+function MySelect<Option,
     IsMulti extends boolean = false,
-    Group extends GroupBase<Option> = GroupBase<Option>
-    >(props: Props<Option, IsMulti, Group>) {
+    Group extends GroupBase<Option> = GroupBase<Option>>(props: Props<Option, IsMulti, Group>) {
 
     const theme = todos.theme === 'dark' ? myTheme.dark : myTheme.light
+    const currentTheme = todos.theme === 'dark' ? darkTheme : lightTheme
 
     const customStyles = {
         option: (provided: any, state: any) => {
             return {
                 ...provided,
                 backgroundColor: state.isSelected ? theme.activeColor : theme.bgColor,
-                color: state.isSelected ? theme.activeColor: theme.color,
             }
         },
         control: () => ({
-
             width: 200,
         }),
-        singleValue: (provided: any, state: any) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
-            const transition = 'opacity 300ms';
-
-            return {...provided, opacity, transition};
-        }
     }
-
-    const handler=(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) =>{
-    }
-    return (
-        <>
-            <Select {...props} styles={customStyles}   />
-        </>
-    );
-};
+    return <Select {...props} styles={customStyles} defaultValue={props.defaultValue}
+                   className={currentTheme.fontColor}/>
+}
 
 export default MySelect;

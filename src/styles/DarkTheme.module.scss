@@ -41,6 +41,10 @@
 .activeFontColor{
     color:$d-active-color;
 }
+.disabled{
+    color:$d-disable-color;
+    opacity: 0.5;
+}
 .bgElemColor{
     background: $d-bg-elem-color;
 }
@@ -88,5 +92,10 @@
         z-index: 10;
         top: 0;
         left: 0;
+    }
+}
+.hoverBgColor{
+    &:hover{
+        background: rgba($d-active-color,0.5);
     }
 }

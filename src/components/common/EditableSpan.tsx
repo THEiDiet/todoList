@@ -5,12 +5,13 @@ import s from './../../styles/common.module.scss'
 type propsType = {
     text: string
     callback: (text: string) => void
-    mode?:'none'
-    className?:string
-    spanClassName?:string
+    mode?: 'none'
+    className?: string
+    spanClassName?: string
+
 }
 
-const EditableSpan = ({text, callback,mode,className,spanClassName}: propsType) => {
+const EditableSpan = ({text, callback, mode, className, spanClassName}: propsType) => {
     let [editMode, setEditMode] = useState(false)
     let [inputText, setInputText] = useState(text)
 
@@ -19,13 +20,14 @@ const EditableSpan = ({text, callback,mode,className,spanClassName}: propsType) 
         callback(str)
         setEditMode(!editMode)
     }
-    const finalClassContainer = `${s.editableSpanContainer} ${className && className}`
-    const finalClass = `${s.editableSpan} ${spanClassName && spanClassName}`
+    const finalClassContainer = `${s.editableSpanContainer} ${className ? className : ''}`
+    const finalClass = `${s.editableSpan} ${spanClassName ? spanClassName : ''}`
     return (
         <div className={finalClassContainer}>
             {
                 editMode &&
-                <MyInput mode={'none'} callback={setText} editableText={inputText} onBlur={() => setEditMode(!editMode)}/>
+                <MyInput mode={'none'} callback={setText} editableText={inputText}
+                         onBlur={() => setEditMode(!editMode)}/>
             }
             {
                 !editMode &&

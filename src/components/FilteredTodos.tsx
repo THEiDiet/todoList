@@ -5,6 +5,7 @@ import s from './../styles/FilteredTodos.module.scss'
 import {TodoType} from "../types/common";
 import darkTheme from "../styles/DarkTheme.module.scss";
 import lightTheme from "../styles/LightTheme.module.scss";
+import MyButton from "./common/MyButton";
 
 type propsType = {
     todos: TodoType[]
@@ -15,7 +16,11 @@ const FilteredTodos = observer(({todos}: propsType) => {
 
     return (
         <div className={s.filteredContainer}>
-            {todos.map((t, i) => <div className={`${s.filteredItem} ${currentTheme.bgElemColor}`} key={t.id}
+            <div className={s.flex}>
+                <MyButton  callback={() => todo.chooseTodo(null)} mode={'add'}/>
+                <h3>Add new todo</h3>
+            </div>
+            {todos.map(t=> <div className={`${s.filteredItem} ${currentTheme.bgElemColor}`} key={t.id}
                                       onClick={() => todo.chooseTodo(t.id)}>
                 <span className={`${s.item__color} ${currentTheme.bgActive}`}/>
                 <span className={s.item__text}>{t.title}</span>

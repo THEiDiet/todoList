@@ -50,6 +50,10 @@
 .bgActive{
     background: $l-active-color;
 }
+.disabled{
+    color:$l-disable-color;
+    opacity: 0.5;
+}
 .borderColor{
     border:3px solid $l-active-color !important;
 }
@@ -61,7 +65,11 @@
     background: $l-form-color;
     caret: $l-color;
 }
-
+.hoverBgColor{
+    &:hover{
+        background: rgba($l-active-color,0.5);
+    }
+}
 .fillColor{
     fill:$l-color;
 }

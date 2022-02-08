@@ -23,12 +23,22 @@ input{
   height: 100%;
   max-width: 80%;
   display: grid;
-  padding-top: 30px;
+  padding: 30px 0 50px 0;
   box-sizing: border-box;
-  grid-template-areas: 'top top top ' 'left center right' 'btm btm btm';
-  grid-template-rows: 80px 5fr 1fr;
+  grid-template-areas: 'top top top ' 'left center right' ;
+  grid-template-rows: 60px 5fr ;
   grid-template-columns: 1fr 3fr 1fr;
   gap: 30px;
+  @media(max-width: 1400px){
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+  @media(max-width: 1200px){
+    grid-template-rows: 60px 1.5fr 2.5fr ;
+    grid-template-columns: 2.5fr 1.5fr ;
+    grid-template-areas: 'top top ' 'center right ' 'center left';
+    gap: 20px;
+    max-width: 90%;
+  }
 }
 .top {
   grid-area: top;
@@ -39,6 +49,11 @@ input{
   box-shadow: inset $shadow;
   border-radius: $b-rad;
   padding: 15px;
+  position: relative;
+  height: 350px;
+  @media(max-width: 991px){
+    align-self: end;
+  }
   h3{
     margin-bottom: 15px;
   }
@@ -55,9 +70,9 @@ input{
   right: 30px;
 }
 .addToLS{
-  position: absolute;
-  top: 50px;
-  right: 30px;
+  width: 100%;
+  border-radius: 100px;
+  margin-bottom: 10px;
 }
 .getFromLS{
   position: absolute;
@@ -82,10 +97,14 @@ input{
   flex-wrap: wrap;
 }
 .themeHandler{
+  cursor: pointer;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 10px;
+  left: 10px;
   display: inline-block;
   width: 34px;
   height: 34px;
+}
+.absolute{
+  position: absolute;
 }

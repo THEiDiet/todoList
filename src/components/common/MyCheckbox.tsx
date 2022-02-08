@@ -18,7 +18,6 @@ const MyCheckbox: React.FC<CheckboxPropsType> = (
         onChange && onChange(e)
         onChangeChecked && onChangeChecked(e.currentTarget.checked)
     }
-    const finalInputClassName = `${s.checkbox} ${className ? className : ''}`
     return (
         <div className={s.checkContainer}>
             <input className={s.checkbox} id='checkbox' onChange={onChangeCallback}
@@ -27,7 +26,5 @@ const MyCheckbox: React.FC<CheckboxPropsType> = (
         </div>
     )
 }
-
-
 
 export default MyCheckbox;

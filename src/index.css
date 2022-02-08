@@ -11,5 +11,9 @@ body {
 }
 .css-1bl8mcx-Control {
   display: flex !important;
+  cursor: pointer;
+}
+.css-6j8wv5-Input{
+  color:silver !important;
 
 }

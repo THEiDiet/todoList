@@ -9,8 +9,10 @@ const Categories = observer(() => {
     const currentTheme = todo.theme === 'dark' ? darkTheme : lightTheme
     return (
         <div className={`${s.categories} ${currentTheme.bgElemColor}`}>
-            {todo.categories.map(c => <div className={`${s.categoryItem} ${todo.currentCategory === c ? currentTheme.bgActive : ''}`} key={c} onClick={()=>todo.changeCategory(c)}>{c}</div>)}
-            <div className={`${s.categoryItem} ${todo.currentCategory === null ? currentTheme.bgActive : ''}`} onClick={()=>todo.changeCategory(null)}>all</div>
+            {todo.categories.map(c => <div className={`${s.categoryItem} ${todo.currentCategory === c ? currentTheme.bgActive : ''} ${currentTheme.hoverBgColor}`}
+                                           key={c} onClick={()=>todo.changeCategory(c)}>{c}</div>)}
+            <div className={`${s.categoryItem} ${todo.currentCategory === null ? currentTheme.bgActive : ''} ${currentTheme.hoverBgColor}`}
+                 onClick={()=>todo.changeCategory(null)}>all</div>
         </div>
     );
 })

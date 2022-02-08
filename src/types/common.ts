@@ -31,7 +31,7 @@ export type commonButtonPropsType = {
     cb:()=>void
     mode?: 'border' | 'fulfilled' | 'none'
 }
-export type FiltersType = 'important'& 'not important'& 'urgently'& 'not urgently' & 'all'
+export type FiltersType = 'important' | 'not important' | 'urgently' | 'not urgently'  | 'all'
 
 export type PointsType = { [key:string]: PointType[] }
 export type selectColorsType = colorsKeys | 'inherit'

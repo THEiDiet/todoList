@@ -13,7 +13,7 @@ const Modal = observer((props: props) => {
     const currentTheme = todo.theme === 'dark' ? darkTheme : lightTheme
 
     return (
-        <div className={`${s.modalBg} ${todo.isModalOpen && s.modalBgActive }`}>
+        <div className={`${s.modalBg} ${todo.isModalOpen && s.modalBgActive}`}>
             <div className={`${s.modal} ${currentTheme.borderColor} ${currentTheme.bgColor}`}>
                 <ModalSettingsBody {...props}/>
             </div>

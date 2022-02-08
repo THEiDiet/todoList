@@ -6,32 +6,33 @@ import darkTheme from "../../styles/DarkTheme.module.scss";
 import lightTheme from "../../styles/LightTheme.module.scss";
 
 type props = {
-    callback?:(text:string)=>void
-    editableText?:string
-    onBlur?:()=>void
-    mode?:'none'
-    onChange?:(text:string)=>void
+    callback?: (text: string) => void
+    editableText?: string
+    onBlur?: () => void
+    mode?: 'none'
+    onChange?: (text: string) => void
 }
 
-const MyInput = ({callback,editableText,onBlur,mode,onChange}:props) => {
+const MyInput = ({callback, editableText, onBlur, mode, onChange}: props) => {
     const currentTheme = todos.theme === 'dark' ? darkTheme : lightTheme
 
-    const [text,setText] = useState(editableText || '')
+    const [text, setText] = useState(editableText || '')
 
-    const clickHandler = ()=> {
+    const clickHandler = () => {
         callback && callback(text)
         setText('')
     }
-    const onChangeHandler = (e:ChangeEvent<HTMLInputElement>)=>{
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setText(e.currentTarget.value)
         onChange && onChange(e.currentTarget.value)
     }
 
-    const onKeyPress = (e: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>)=>{
+    const onKeyPress = (e: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>) => {
         if (e.key === 'Enter') {
             callback && callback(text)
+            setText('')
         } else if (e.key === 'Escape') {
-            editableText && callback &&  callback(editableText)
+            editableText && callback && callback(editableText)
         }
     }
 
@@ -39,9 +40,9 @@ const MyInput = ({callback,editableText,onBlur,mode,onChange}:props) => {
         <div className={s.addForm}>
             <input className={`${s.input} ${currentTheme.formBg}`} type="text" autoFocus
                    value={text} onChange={onChangeHandler}
-                     onKeyUp={onKeyPress} onBlur={onBlur}
+                   onKeyUp={onKeyPress} onBlur={onBlur}
             />
-            { mode !=='none' && <MyButton callback={clickHandler} mode={'add'} className={s.addForm__add}/>}
+            {mode !== 'none' && <MyButton callback={clickHandler} mode={'add'} className={s.addForm__add}/>}
         </div>
     );
 };
