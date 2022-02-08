@@ -4,6 +4,7 @@ import todos from "../../store/todo";
 import myTheme from '../../theme/theme'
 import darkTheme from "../../styles/DarkTheme.module.scss";
 import lightTheme from "../../styles/LightTheme.module.scss";
+import c from './../../styles/common.module.scss'
 
 function MySelect<Option,
     IsMulti extends boolean = false,
@@ -24,7 +25,7 @@ function MySelect<Option,
         }),
     }
     return <Select {...props} styles={customStyles} defaultValue={props.defaultValue}
-                   className={currentTheme.fontColor}/>
+                   className={`${c.select} ${currentTheme.fontColor}`}/>
 }
 
 export default MySelect;

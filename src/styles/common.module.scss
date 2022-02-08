@@ -39,6 +39,11 @@
 }
 .checkbox {
 }
+.select{
+  &>div{
+    display: flex;
+  }
+}
 .iconBtn {
   cursor: pointer;
   width: 26px;
