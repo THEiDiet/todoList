@@ -98,6 +98,9 @@
         padding-top: 10px;
         display: flex;
         justify-content: space-between;
+        svg{
+            cursor: pointer;
+        }
     }
     &__body {
         display: flex;

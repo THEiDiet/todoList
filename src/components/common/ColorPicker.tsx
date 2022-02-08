@@ -4,13 +4,14 @@ import s from "../../styles/TaskSettings.module.scss";
 import todo from "../../store/todo";
 import darkTheme from "../../styles/DarkTheme.module.scss";
 import lightTheme from "../../styles/LightTheme.module.scss";
+import {observer} from "mobx-react-lite";
 
 type props = {
     currentColor:selectColorsType
     callback:(color:selectColorsType)=>void
 }
 
-const ColorPicker = ({callback,currentColor}:props) => {
+const ColorPicker = observer(({callback,currentColor}:props) => {
     const currentTheme = todo.theme === 'dark' ? darkTheme : lightTheme
     const colorsNew = ["red", "aqua", "green", "blue", "violet",'inherit'] as selectColorsType[]
     const pickColor = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -22,6 +23,6 @@ const ColorPicker = ({callback,currentColor}:props) => {
             {colorsNew.map(c => <div key={c} className={` ${s.color} ${c !=='inherit' ? currentTheme[c] : currentTheme.bgElemColor} ${currentColor === c && currentTheme.activeBorderColor}`} data-color={c}/>)}
         </div>
     );
-};
+})
 
 export default ColorPicker;

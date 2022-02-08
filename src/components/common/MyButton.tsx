@@ -15,7 +15,7 @@ type propsType = {
 export type modeType = 'add' | 'delete' | 'edit'
 const MyButton = ({mode, callback, className}: propsType) => {
     const currentTheme = todos.theme === 'dark' ? darkTheme : lightTheme
-    const finalClassName = `${c.iconBtn} ${className && className} ${currentTheme.fillColor} ${mode === 'add' && c.roundBtn}`
+    const finalClassName = `${c.iconBtn} ${className ? className : ''} ${currentTheme.fillColor} ${mode === 'add' && c.roundBtn}`
     let Component = mode === 'add' ? Add : mode === 'delete' ? Delete : Edit
     return (
         <>

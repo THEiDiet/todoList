@@ -6,10 +6,11 @@ import s from './../../styles/common.module.scss'
 import todo from "../../store/todo";
 import darkTheme from "../../styles/DarkTheme.module.scss";
 import lightTheme from "../../styles/LightTheme.module.scss";
+import {observer} from "mobx-react-lite";
 
 type propsT = commonButtonPropsType & {}
 
-const IconButton = (props: propsT) => {
+const IconButton = observer((props: propsT) => {
     const currentTheme = todo.theme === 'dark' ? darkTheme : lightTheme
 
     return (
@@ -17,7 +18,7 @@ const IconButton = (props: propsT) => {
             <CommonButton {...props}/>
             <Settings className={`${s.iconButton__icon} ${currentTheme.fillColor}`}/>
         </div>
-    );
-};
+    )
+})
 
 export default IconButton;
