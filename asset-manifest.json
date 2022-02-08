@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/todoList/static/css/main.71b39b9e.css",
-    "main.js": "/todoList/static/js/main.7f8f4b34.js",
+    "main.css": "/todoList/static/css/main.8b171bb3.css",
+    "main.js": "/todoList/static/js/main.6c4f0e1d.js",
     "static/js/787.3bf9ceab.chunk.js": "/todoList/static/js/787.3bf9ceab.chunk.js",
     "static/media/sun.svg": "/todoList/static/media/sun.1de8fdcb912f2cd597aa998160147239.svg",
     "static/media/settings.svg": "/todoList/static/media/settings.806ba4c761bdd3349db56a133576fd5c.svg",
@@ -12,12 +12,12 @@
     "static/media/arrow.svg": "/todoList/static/media/arrow.b70b257eb0a1c65e6734f3028e783fb0.svg",
     "static/media/del.svg": "/todoList/static/media/del.8adf038d856020602610c29fa726dc42.svg",
     "static/media/check.svg": "/todoList/static/media/check.ba7963354f8c11aac1045ae783ac286c.svg",
-    "main.71b39b9e.css.map": "/todoList/static/css/main.71b39b9e.css.map",
-    "main.7f8f4b34.js.map": "/todoList/static/js/main.7f8f4b34.js.map",
+    "main.8b171bb3.css.map": "/todoList/static/css/main.8b171bb3.css.map",
+    "main.6c4f0e1d.js.map": "/todoList/static/js/main.6c4f0e1d.js.map",
     "787.3bf9ceab.chunk.js.map": "/todoList/static/js/787.3bf9ceab.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.71b39b9e.css",
-    "static/js/main.7f8f4b34.js"
+    "static/css/main.8b171bb3.css",
+    "static/js/main.6c4f0e1d.js"
   ]
 }
